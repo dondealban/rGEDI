@@ -14,13 +14,24 @@
 #'
 #'@seealso https://lpdaac.usgs.gov/products/gedi02_bv001/
 #'
-#'@details These are the biophysical variables extracted:
+#'@details These are the biophysical variables and additional information extracted:
 #'\itemize{
-#'\item \emph{pai} Total Plant Area Index.
-#'\item \emph{fhd_normal} Foliage Height Diversity.
-#'\item \emph{omega} Foliage Clumping Index.
-#'\item \emph{pgap_theta} Total Gap Probability (theta).
-#'\item \emph{cover} Total canopy cover.
+#'\item \emph{beam} Beam identifie
+#'\item \emph{shot_number} Shot number
+#'\item \emph{algorithmrun_flag} The L2B algorithm is run if this flag is set to 1 indicating data have sufficient waveform fidelity for L2B to run
+#'\item \emph{l2b_quality_flag} L2B quality flag
+#'\item \emph{delta_time} Transmit time of the shot since Jan 1 00:00 2018
+#'\item \emph{sensitivity} Maxmimum canopy cover that can be penetrated
+#'\item \emph{solar_elevation} Solar elevation
+#'\item \emph{latitude_lastbin} Latitude of last bin of the pgap_theta_z, interpolated from L1B waveform coordinate
+#'\item \emph{latitude_bin0} Latitude of first bin of the pgap_theta_z, interpolated from L1B waveform coordinate
+#'\item \emph{elev_highestreturn} Elevation of highest detected return relative to reference ellipsoid
+#'\item \emph{elev_lowestmode} Elevation of center of lowest mode relative to reference ellipsoid
+#'\item \emph{pai} Total Plant Area Index
+#'\item \emph{fhd_normal} Foliage Height Diversity
+#'\item \emph{omega} Foliage Clumping Index
+#'\item \emph{pgap_theta} Total Gap Probability (theta)
+#'\item \emph{cover} Total canopy cover
 #'}
 #'
 #'@examples
@@ -56,7 +67,11 @@ getLevel2BVPM<-function(level2b){
     m<-data.table::data.table(
       beam<-rep(i,length(level2b_i[["shot_number"]][])),
       shot_number=level2b_i[["shot_number"]][],
+      algorithmrun_flag=level2b_i[["algorithmrun_flag"]][],
+      l2b_quality_flag=level2b_i[["l2b_quality_flag"]][],
       delta_time=level2b_i[["geolocation/delta_time"]][],
+      sensitivity=level2b_i[["sensitivity"]][],
+      solar_elevation=level2b_i[["geolocation/solar_elevation"]][],
       latitude_lastbin=level2b_i[["geolocation/latitude_lastbin"]][],
       latitude_bin0=level2b_i[["geolocation/latitude_bin0"]][],
       longitude_bin0=level2b_i[["geolocation/longitude_bin0"]][],
@@ -70,7 +85,10 @@ getLevel2BVPM<-function(level2b){
       cover=level2b_i[["cover"]][])
     m.dt<-rbind(m.dt,m)
   }
-  colnames(m.dt)<-c("beam","shot_number","delta_time","latitude_lastbin","latitude_bin0",
+  colnames(m.dt)<-c("beam","shot_number","algorithmrun_flag",
+                    "l2b_quality_flag","delta_time",
+                    "sensitivity","solar_elevation",
+                    "latitude_lastbin","latitude_bin0",
                     "longitude_lastbin","longitude_bin0",
                     "elev_highestreturn","elev_lowestmode","pai",
                     "fhd_normal","omega","pgap_theta","cover")
