@@ -1,7 +1,8 @@
 ![](https://github.com/carlos-alberto-silva/rGEDI/blob/master/readme/fig1.png)<br/>
 
+[![R-CMD-check](https://github.com/carlos-alberto-silva/rGEDI/actions/workflows/r.yml/badge.svg?branch=master)](https://github.com/carlos-alberto-silva/rGEDI/actions/workflows/r.yml)
 [![CRAN](https://www.r-pkg.org/badges/version/rGEDI)](https://cran.r-project.org/package=rGEDI)
-![Github](https://img.shields.io/badge/Github-0.1.7-green.svg)
+![Github](https://img.shields.io/badge/Github-0.1.12-green.svg)
 ![licence](https://img.shields.io/badge/Licence-GPL--3-blue.svg) 
 ![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rGEDI)
 [![Build Status](https://travis-ci.com/carlos-alberto-silva/rGEDI.svg?token=Jqizwyc6gBxNafNccTdU&branch=master)](https://travis-ci.com/carlos-alberto-silva/rGEDI)
@@ -21,7 +22,7 @@ install.packages("rGEDI")
 
 #The development version:
 library(devtools)
-devtools::install_github("carlos-alberto-silva/rGEDI", dependencies = TRUE)
+devtools::install_git("https://github.com/carlos-alberto-silva/rGEDI", dependencies = TRUE)
 
 # loading rGEDI package
 library(rGEDI)
@@ -40,9 +41,9 @@ lr_lon<- -13.67646
 daterange=c("2019-07-01","2020-05-22")
 
 # Get path to GEDI data
-gLevel1B<-gedifinder(product="GEDI01_B",ul_lat, ul_lon, lr_lat, lr_lon,version="001",daterange=daterange)
-gLevel2A<-gedifinder(product="GEDI02_A",ul_lat, ul_lon, lr_lat, lr_lon,version="001",daterange=daterange)
-gLevel2B<-gedifinder(product="GEDI02_B",ul_lat, ul_lon, lr_lat, lr_lon,version="001",daterange=daterange)
+gLevel1B<-gedifinder(product="GEDI01_B",ul_lat, ul_lon, lr_lat, lr_lon,version="002",daterange=daterange)
+gLevel2A<-gedifinder(product="GEDI02_A",ul_lat, ul_lon, lr_lat, lr_lon,version="002",daterange=daterange)
+gLevel2B<-gedifinder(product="GEDI02_B",ul_lat, ul_lon, lr_lat, lr_lon,version="002",daterange=daterange)
 ```
 ## Downloading GEDI data
 ```r
@@ -595,11 +596,11 @@ The Brazilian National Council for Scientific and Technological Development (CNP
 (carlos_engflorestal@outlook.com).
 
 # Reporting Issues 
-Please report any issue reagardling the rGEDI package herein https://groups.yahoo.com/neo/groups/rGEDI
+Please report any issue regarding the rGEDI package herein https://groups.yahoo.com/neo/groups/rGEDI
 
 # Citing rGEDI
 Silva,C.A; Hamamura,C.; Valbuena, R.; Hancock,S.; Cardil,A.; Broadbent, E. N.; Almeida,D.R.A.; Silva Junior, C.H.L; Klauberg, C. rGEDI: NASA's Global Ecosystem Dynamics Investigation (GEDI) Data Visualization and Processing.
-version 0.1.2, accessed on April. 1 2020, available at: <https://CRAN.R-project.org/package=rGEDI>
+version 0.1.9, accessed on October. 22 2020, available at: <https://CRAN.R-project.org/package=rGEDI>
 
 # Disclaimer
 **rGEDI package has not been developted by the GEDI team. It comes with no guarantee, expressed or implied, and the authors hold no responsibility for its use or reliability of its outputs.**

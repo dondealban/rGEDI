@@ -620,8 +620,6 @@ ac_includes_default="\
 
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
-GEOTIFF_LIBS
-GEOTIFF_INCLUDE
 HDF5_TYPE
 HDF5_FLIBS
 HDF5_FFLAGS
@@ -2062,6 +2060,10 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 # Checks for common programs using default macros
+CC=`"${R_HOME}/bin/R" CMD config CC`
+CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
+CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -3959,51 +3961,12 @@ $as_echo "#define HAVE_HDF5 1" >>confdefs.h
 fi
 
 
-if test "$HAVE_HDF5" = "no" ; then
-	as_fn_error $? "could not find hdf5:
+if test "$with_hdf5" != "yes"; then
+    as_fn_error $? "could not find hdf5:
                          Debian: sudo apt install libhdf5-dev
                          RPM-based: sudo dnf install hdf5-devel
                          MacOS: brew install hdf5" "$LINENO" 5
 fi
-
-##################
-## GEOTIFF
-##################
-
-GEOTIFF_INCLUDE=
-
-if test -r /usr/include/geotiff.h ; then
-	GEOTIFF_INCLUDE=
-elif test -r /usr/include/geotiff/geotiff.h ; then
-	GEOTIFF_INCLUDE="-I/usr/include/geotiff"
-elif test -r /usr/include/libgeotiff/geotiff.h ; then
-	GEOTIFF_INCLUDE="-I/usr/include/libgeotiff"
-else
-	for ac_header in geotiff.h
-do :
-  ac_fn_c_check_header_mongrel "$LINENO" "geotiff.h" "ac_cv_header_geotiff_h" "$ac_includes_default"
-if test "x$ac_cv_header_geotiff_h" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_GEOTIFF_H 1
-_ACEOF
-
-fi
-
-done
-
-	if test "$ac_cv_header_geotiff_h" = "no" ; then
-		as_fn_error $? "cannot find geotiff.h" "$LINENO" 5
-	fi
-fi
-
-GEOTIFF_LIBS="-lgeotiff $LIBS"
-
-
-GEOTIFF_INCLUDE=$GEOTIFF_INCLUDE
-
-GEOTIFF_LIBS=$GEOTIFF_LIBS
-
-
 
 ##################
 ## SZIP
@@ -4109,7 +4072,6 @@ then
         LDFLAGS="$LDFLAGS -L${ZLIB_HOME}/lib"
         CPPFLAGS="$CPPFLAGS -I${ZLIB_HOME}/include"
   fi
-
   ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -4189,7 +4151,7 @@ $as_echo "#define HAVE_LIBZ 1" >>confdefs.h
     #
     # If either header or library was not found, action-if-not-found
     #
-    as_fn_error $? "could not find libz:
+    as_fn_error $? "could not find zlib:
                          Debian: sudo apt install zlib1g-dev
                          RPM-based: sudo dnf install zlib-devel
                          MacOS: brew install zlib" "$LINENO" 5
@@ -5360,4 +5322,5 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: unrecognized options: $ac_unrecognized_opts" >&5
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
+
 
